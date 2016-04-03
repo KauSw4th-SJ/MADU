@@ -44,17 +44,17 @@ public class Kalman extends Thread {
 	public void prediction(){
 		// X = AX + Bu 	= X
 		mat.sP(mat.gP().plus(mat.gQ())); 	// P = AP + Q 	= P + Q
-		System.out.println("P "+mat.gP().toString());
+//		System.out.println("P "+mat.gP().toString());
 	}
 	public void correction(){
 		mat.sK(mat.gP().elementDiv(mat.gP().plus(mat.gR())));	// K = P / ( P + R )
 		mat.gK().set(0, 1, 0);
 		mat.gK().set(1, 0, 0);
-		System.out.println("K "+mat.gK().toString());
+//		System.out.println("K "+mat.gK().toString());
 		// X = X + K ( Z - K )
 		mat.sX(mat.gX().plus(mat.gK().mult(new SimpleMatrix(2,1,true,new double[]{curAcc[0],curAcc[1]}).minus(mat.gX()))));
-		System.out.println("X "+mat.gX().toString());
+//		System.out.println("X "+mat.gX().toString());
 		mat.sP(mat.gA().minus(mat.gK()).mult(mat.gP()));		// P = ( A - K ) * P
-		System.out.println("P "+mat.gP().toString());
+//		System.out.println("P "+mat.gP().toString());
 	}
 }

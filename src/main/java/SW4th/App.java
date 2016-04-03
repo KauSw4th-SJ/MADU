@@ -21,6 +21,7 @@ public class App
     	acc_data[1] = new LinkedList<Double>();
     	kal_data[0] = new LinkedList<Double>();
     	kal_data[1] = new LinkedList<Double>();
+    	
     	/* generate instances */
     	Matrices mat = new Matrices(0.8, 0.05, 0.005);
     	Accelerometer acc = new Accelerometer(acc_data);
