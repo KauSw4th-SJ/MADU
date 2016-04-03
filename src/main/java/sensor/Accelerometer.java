@@ -7,19 +7,21 @@ import java.util.Queue;
 import java.util.Vector;
 import au.com.bytecode.opencsv.CSVReader;
 
-public class Accelerometer{
+public class Accelerometer extends Thread{
 	// field variables 
 	private double[] acc_val;
 	private double[] cal_val;
+	private Queue<Double>[] sync;
 	/* < temporary code */
 	private Queue<Double>[] acc;
 	private Queue<Double>[] cal;
 	/* temporary code > */
 	
 	// constructor
-	public Accelerometer(){ 
+	public Accelerometer(Queue[] aq){ 
 		acc_val = new double[2];
 		cal_val = new double[4];
+		sync = aq;
 		/* < temporary code */
 		try{
 			readCSV();
@@ -29,13 +31,33 @@ public class Accelerometer{
 		}
 		/* temporary code > */
 	}
+	// thread run method
+	@Override
+    public void run() {
+		while(true){
+			try{
+				Thread.sleep(10);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			synchronized(sync){
+				if(sensing()){
+					sync[0].offer(acc_val[0]);
+					sync[1].offer(acc_val[1]);
+//					System.out.println("set acc data");
+				}
+			}
+		}
+	}
 	// get single sensor data
-	public double[] sensing(){
+	public boolean sensing(){
 		/* < temporary code */
-		acc_val[0] = acc[0].remove();
-		acc_val[1] = acc[1].remove();
+		if(acc[0].peek() != null){
+			acc_val[0] = acc[0].remove(); 
+			acc_val[1] = acc[1].remove();
+			return true;
+		} else return false;
 		/* temporary code > */
-		return acc_val;
 	}
 	// get calibration data
 	public double[] getCalData(){
