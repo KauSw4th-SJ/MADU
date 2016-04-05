@@ -8,12 +8,14 @@ import java.util.Queue;
 import org.ejml.simple.SimpleMatrix;
 
 import filter.*;
-
+import org.ejml.simple.SimpleMatrix;
 
 public class App 
 {
     public static void main( String[] args ){
     	/* shared variables */
+    	double[] sd;
+    	sd = new double[2];
     	Queue<Double>[] acc_data, kal_data;
     	acc_data = new Queue[2];
     	kal_data = new Queue[2];
@@ -23,14 +25,15 @@ public class App
     	kal_data[1] = new LinkedList<Double>();
     	
     	/* generate instances */
-    	Matrices mat = new Matrices(0.8, 0.05, 0.005);
-    	Accelerometer acc = new Accelerometer(acc_data);
-    	Kalman kalman = new Kalman(mat, acc.getCalData(), acc_data, kal_data);
+    	Matrices mat = new Matrices(1, 24, 0.0625);
+    	Accelerometer acc = new Accelerometer(acc_data, sd);
+    	Kalman kalman = new Kalman(mat, acc_data, kal_data, 5, sd);
 		Show show = new Show(kal_data);
 		
 		acc.start();
     	kalman.start();
     	show.start();
+    	
     	/* rendering several graphs on JFrame */
     }
 }

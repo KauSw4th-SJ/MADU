@@ -7,8 +7,8 @@ public class Matrices {
 	private SimpleMatrix X, K, A;
 	
 	public Matrices(double pe, double oe, double no){
-		P = new SimpleMatrix(2,2,true,new double[]{pe*pe,0,0,pe*pe});
-		R = new SimpleMatrix(2,2,true,new double[]{oe*oe,0,0,oe*oe});
+		P = new SimpleMatrix(2,2,true,new double[]{pe,0,0,pe});
+		R = new SimpleMatrix(2,2,true,new double[]{oe,0,0,oe});
 		Q = new SimpleMatrix(2,2,true,new double[]{no,0,0,no});
 		X = new SimpleMatrix(2,1);
 		K = new SimpleMatrix(2,2);
@@ -31,6 +31,9 @@ public class Matrices {
 	}
 	public SimpleMatrix gA(){
 		return K;
+	}
+	public SimpleMatrix gAmK(){
+		return A.minus(K);
 	}
 	public void sP(SimpleMatrix p){
 		P = p;
