@@ -27,7 +27,7 @@ public class App
     	/* generate instances */
     	Matrices mat = new Matrices(1, 24, 0.0625);
     	Accelerometer acc = new Accelerometer(acc_data, sd);
-    	Kalman kalman = new Kalman(mat, acc_data, kal_data, 5, sd);
+    	Kalman kalman = new Kalman(mat, acc_data, kal_data, 5, sd, 0.05);
 		Show show = new Show(kal_data);
 		
 		acc.start();
