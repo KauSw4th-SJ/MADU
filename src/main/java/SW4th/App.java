@@ -1,7 +1,8 @@
 package SW4th;
 
 import sensor.Accelerometer;
-import visualize.Show;
+import visualize.Viewer.MADUGraphViewer;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -28,7 +29,7 @@ public class App
     	Matrices mat = new Matrices(1, 24, 0.0625);
     	Accelerometer acc = new Accelerometer(acc_data, sd);
     	Kalman kalman = new Kalman(mat, acc_data, kal_data, 5, sd, 0.05);
-		Show show = new Show(kal_data);
+		MADUGraphViewer show = new MADUGraphViewer(kal_data);
 		
 		acc.start();
     	kalman.start();
