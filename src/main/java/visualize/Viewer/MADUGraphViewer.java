@@ -14,6 +14,7 @@ public class MADUGraphViewer extends Thread{
 	private MADUJFrame maduFrame;
 	private MADUJPanel maduPanel;
 	
+	//test_jaeshim
 	public MADUGraphViewer(Queue<Double>[] sync){
 		this.sync_k = sync;		
 	}
